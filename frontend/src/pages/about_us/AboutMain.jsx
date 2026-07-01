@@ -9,9 +9,9 @@ const AboutMain = () => {
     return (
         <div>
             <Introduction />
+            <Leadership />
             <ManufacturingExcellence />
             <HowWeManufacture />
-            <Leadership />
             <OurCommitment />
         </div>
     )
