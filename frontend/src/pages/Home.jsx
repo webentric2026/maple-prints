@@ -16,7 +16,7 @@ const Home = () => {
             <Products />
             <WhyMaple />
             <Infrastructure />
-            <Footer />
+
         </div>
     )
 }

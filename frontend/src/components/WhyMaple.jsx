@@ -202,7 +202,7 @@ export default function WhyMaple() {
                         {[
                             { value: 50, suffix: "+", label: "Clients Served" },
                             { value: 10, suffix: "+", label: "Industries Covered" },
-                            { value: 20, suffix: "+", label: "Years Experience" },
+                            { value: 19, suffix: "+", label: "Years Experience" },
                         ].map(({ value, suffix, label }) => {
                             const [count, ref] = useCountUp(value);
                             return (

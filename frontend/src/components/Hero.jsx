@@ -3,7 +3,7 @@ import hero_image from "../assets/images/Hero/grouped-all-16-9.png"
 // Hero.jsx
 export default function Hero() {
     return (
-        <section className="w-full bg-white">
+        <section className="w-full ">
 
             {/* ── Top: Full-width Image ── */}
             <div className="w-full h-[340px] md:h-[460px] lg:h-[450px] overflow-hidden bg-[#EFEFED] mt-15">
@@ -19,7 +19,7 @@ export default function Hero() {
 
             {/* ── Bottom: Text Content ── */}
             <div className="max-w-[1400px] mx-auto px-5 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
                     {/* Left column — badge + headline */}
                     <div>

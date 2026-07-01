@@ -288,18 +288,6 @@ export default function TrustedBy() {
       {/* ── Divider ── */}
       <div className="mb-14"><Divider /></div>
 
-      {/* ── Stats ── */}
-      <div className="relative z-10 max-w-[900px] mx-auto px-6 sm:px-8 mb-14">
-        <div className="grid grid-cols-3 gap-10 md:gap-6">
-          {stats.map((s, i) => (
-            <StatItem key={i} {...s} />
-          ))}
-        </div>
-      </div>
-
-      {/* ── Divider ── */}
-      <div className="mb-14"><Divider /></div>
-
       {/* ── Partners intro block ── */}
       <div className="relative z-10 max-w-[700px] mx-auto px-6 sm:px-10 mb-10 text-center">
         <p className="text-[#E8820C] text-[25px] md:text-[40px] font-bold tracking-[0.1em] uppercase mb-3">

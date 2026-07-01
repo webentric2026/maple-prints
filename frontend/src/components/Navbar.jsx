@@ -8,8 +8,6 @@ const NAV_LINKS = [
     { label: "About Us", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Products", href: "/products" },
-    { label: "Facility", href: "/facility" },
-    { label: "Our Commitment", href: "/quality" },
 ];
 
 export default function Navbar() {
@@ -139,7 +137,7 @@ export default function Navbar() {
                 {/* ── CTA (desktop) ── */}
                 <div className="hidden md:block">
                     <a
-                        href="https://wa.me/9810152101"
+                        href="/contact"
                         className="inline-flex items-center justify-center h-12 px-10 text-sm font-semibold text-white bg-[#E09A00] shadow-md transition-all duration-200 hover:bg-[#c98700] hover:shadow-lg active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#E09A00]"
                     >
                         Contact
@@ -238,11 +236,11 @@ export default function Navbar() {
                 {/* CTA — Pinned to Bottom */}
                 <div className="px-4 pb-8 pt-4 border-t border-gray-100">
                     <a
-                        href="https://wa.me/9810152101"
+                        href="/contact"
                         onClick={() => setMenuOpen(false)}
                         className="flex h-11 items-center justify-center bg-[#E09A00] text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-[#c98700] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#E09A00]"
                     >
-                        Get Quote
+                        Contact
                     </a>
                 </div>
             </div>
