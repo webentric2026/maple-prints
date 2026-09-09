@@ -13,7 +13,7 @@ const Home = () => {
             <Hero />
             <Clients />
             <IndustriesWeServe />
-            <Products />
+            {/* <Products />     */}
             <WhyMaple />
             <Infrastructure />
 

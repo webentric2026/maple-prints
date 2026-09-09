@@ -6,8 +6,9 @@ import logo from '../assets/icons/mapple_logo.png'
 const NAV_LINKS = [
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
-    { label: "Services", href: "/services" },
-    { label: "Products", href: "/products" },
+    { label: "Clients", href: "/clients" },
+    { label: "Services & Finishes", href: "/services" },
+    { label: "Why Choose Us", href: "/why-choose-us" },
 ];
 
 export default function Navbar() {
@@ -113,7 +114,7 @@ export default function Navbar() {
             </div>
 
             <nav
-                className="fixed left-0 w-full min-h-[72px] md:h-18 flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32 bg-white backdrop-blur-md border-b border-white/10 z-49"
+                className="fixed left-0 w-full min-h-[72px] md:h-18 flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32 bg-white backdrop-blur-md border-b border-b-black/10 z-49"
                 style={{
                     top: `${infoBarHeight}px`,
                     transition: "top 300ms cubic-bezier(0.16,1,0.3,1)",

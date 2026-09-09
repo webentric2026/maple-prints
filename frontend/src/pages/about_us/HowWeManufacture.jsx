@@ -15,9 +15,10 @@ const steps = [
     { icon: MessageSquare, label: "Consultation" },
     { icon: ScissorsIcon, label: "Design Support" },
     { icon: Printer, label: "Offset Printing" },
-    { icon: Scissors, label: "Die Cutting" },
     { icon: Sparkles, label: "Premium Finishing" },
+    { icon: Scissors, label: "Die Cutting" },
     { icon: ClipboardCheck, label: "Quality Inspection" },
+    { icon: ClipboardCheck, label: "Delivery" },
 ];
 
 // ─────────────────────────────────────────────
@@ -104,7 +105,7 @@ export default function HowWeManufacture() {
                         }}
                     />
 
-                    <div className="grid grid-cols-6 gap-2">
+                    <div className="grid grid-cols-7 gap-2">
                         {steps.map((step, i) => (
                             <StepItem
                                 key={step.label}

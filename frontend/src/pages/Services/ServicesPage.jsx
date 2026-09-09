@@ -1,16 +1,14 @@
-import React from 'react'
-import Hero from './Hero.jsx'
-import FeaturedSection from './FeaturedSection.jsx'
-import OtherProducts from './OtherProducts.jsx'
+import ServicesHero from './ServicesHero.jsx'
+import ServiceShowcase from './ServiceShowcase.jsx'
+import Products from '../../pages/Products.jsx'
 
 const ServicesPage = () => {
   return (
     <>
-      <Hero />
-      <FeaturedSection />
-      <OtherProducts />
+      <ServicesHero />
+      <ServiceShowcase />
+      <Products />
     </>
-
   )
 }
 

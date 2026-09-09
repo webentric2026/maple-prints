@@ -10,7 +10,7 @@ import rigidBoxesImg from '../assets/images/rigid.png'
 import corrugatedImg from '../assets/images/Products/nutra-7.png'
 import foodTrayImg from '../assets/images/food-trays.png'
 import windowCartonImg from '../assets/images/Products/food-1.png'
-import monoCartonImg from '../assets/images/Products/grouped-pharma-1.png'
+import monoCartonImg from '../assets/images/Products/Emb-5.jpg'
 
 const products = [
     { name: "Rigid Boxes", image: rigidBoxesImg },

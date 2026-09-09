@@ -60,10 +60,10 @@ export default function ManufacturingExcellence() {
             className="relative w-full py-14 sm:py-20 md:py-28 bg-white"
 
         >
-            <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
+            <div className=" mx-auto px-5 sm:px-8 lg:px-10">
+                <div className="flex flex-col justify-center items-center">
                     {/* ── LEFT: Text + Capabilities ── */}
-                    <div className="flex flex-col order-2 lg:order-1">
+                    <div className="flex flex-col items-center order-2 lg:order-1">
                         {/* <p
                             className="font-bold uppercase tracking-widest mb-3 sm:mb-4 text-center lg:text-left"
                             style={{ color: "#C97A1E", fontSize: "11px", letterSpacing: "0.12em" }}
@@ -79,7 +79,7 @@ export default function ManufacturingExcellence() {
                         </h2>
 
                         <p
-                            className="leading-relaxed mb-8 sm:mb-10 text-center lg:text-left mx-auto lg:mx-0 text-[16px] max-w-[460px] text-black/75"
+                            className="leading-relaxed mb-8 sm:mb-10 text-center lg:text-left mx-auto lg:mx-0 text-[16px] max-w-[90%] md:max-w-[70%] text-black/75"
                         >
                             At Maple Prints, manufacturing excellence is built on a foundation of advanced technology, precision engineering, and an uncompromising commitment to quality. Our production facility is equipped with modern high-performance machinery that enables us to consistently deliver premium packaging solutions with exceptional print clarity, structural accuracy, and finishing precision.<br />
                             <br />
@@ -92,24 +92,16 @@ export default function ManufacturingExcellence() {
                             Our manufacturing capabilities are designed not only to meet industry standards but to exceed client expectations by delivering packaging that reflects refinement, durability, and premium visual appeal.<br />
                         </p>
 
-
                     </div>
 
-                    {/* ── RIGHT: Image ── */}
-                    <div className="relative w-full order-1 lg:order-2">
-                        <img
-                            src={machineImg}
-                            alt="KBA offset printing machine in Maple Prints facility"
-                            className="w-full h-[240px] sm:h-[320px] md:h-[380px] lg:h-[460px] object-cover"
-                            loading="lazy"
-                        />
-                        {/* Capabilities grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-x-8 gap-y-6 sm:gap-y-7 mt-10">
+                    {/* <div className="relative w-full order-1 lg:order-2">
+                        // {/* Capabilities grid */}
+                    {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-x-8 gap-y-6 sm:gap-y-7 mt-10">
                             {capabilities.map((c) => (
                                 <CapabilityItem key={c.title} {...c} />
                             ))}
-                        </div>
-                    </div>
+                        </div> */}
+                    {/* </div>  */}
                 </div>
             </div>
         </section>

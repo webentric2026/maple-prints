@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
-import ayurvedic_1 from '../assets/images/Products/ayurvedic-1.png'
-import ayurvedic_2 from '../assets/images/Products/ayurvedic-2.png'
-import ayurvedic_3 from '../assets/images/Products/ayurvedic-3.png'
-import ayurvedic_4 from '../assets/images/Products/ayurvedic-4.png'
+import ayurvedic_1 from '../assets/images/Products/rigid-1.jpg'
+import ayurvedic_2 from '../assets/images/Products/rigid-2.jpg'
+import ayurvedic_3 from '../assets/images/Products/rigid-3.jpg'
+import ayurvedic_4 from '../assets/images/Products/CB-1.jpg'
 import cosmetic_1 from '../assets/images/Products/cosmetic-1.png'
 import cosmetic_2 from '../assets/images/Products/cosmetic-2.png'
 import cosmetic_3 from '../assets/images/Products/cosmetic-3.png'
@@ -21,14 +21,18 @@ import nutraceuticals_4 from '../assets/images/Products/nutra-4.png'
 import nutraceuticals_5 from '../assets/images/Products/nutra-5.png'
 import nutraceuticals_6 from '../assets/images/Products/nutra-6.png'
 import nutraceuticals_7 from '../assets/images/Products/nutra-7.png'
-import pharmaceuticals_1 from '../assets/images/Products/pharma-1.png'
-import pharmaceuticals_2 from '../assets/images/Products/pharma-2.png'
-import pharmaceuticals_3 from '../assets/images/Products/pharma-3.png'
-import pharmaceuticals_4 from '../assets/images/Products/pharma-4.png'
-import pharmaceuticals_5 from '../assets/images/Products/pharma-5.png'
+import pharmaceuticals_1 from '../assets/images/Products/spot-uv-1.jpg'
+import pharmaceuticals_2 from '../assets/images/Products/spot-uv-2.jpg'
+import pharmaceuticals_3 from '../assets/images/Products/spot-uv-3.jpg'
+import pharmaceuticals_4 from '../assets/images/Products/MG-1.jpg'
+import pharmaceuticals_5 from '../assets/images/Products/MG-2.jpg'
 import pharmaceuticals_6 from '../assets/images/Products/pharma-6.png'
 import pharmaceuticals_7 from '../assets/images/Products/pharma-7.png'
 import pharmaceuticals_8 from '../assets/images/Products/pharma-8.png'
+import window_1 from '../assets/images/Products/window-1.jpg'
+import windows_2 from '../assets/images/Products/window-2.jpg'
+import window_3 from '../assets/images/Products/window-3.jpg'
+import window_4 from '../assets/images/Products/window-4.jpg'
 
 // ── Data ──────────────────────────────────────────────────────────────
 const categories = [
@@ -38,7 +42,8 @@ const categories = [
     "Electronics",
     "Pharmaceuticals",
     "Nutraceuticals",
-    "Food"
+    "Food",
+
 ];
 
 export const products = [
@@ -63,18 +68,18 @@ export const products = [
     },
     {
         id: 3,
-        name: "Anshi - Shilajit",
+        name: "Veda",
         category: "Ayurvedic",
-        image: ayurvedic_3,
+        image: ayurvedic_4,
         specs: [
-            { label: "Type", value: "Rigid Carton" },
+            { label: "Type", value: "Corrugated Carton" },
         ],
     },
     {
         id: 4,
         name: "Ojas Gold",
         category: "Ayurvedic",
-        image: ayurvedic_4,
+        image: ayurvedic_3,
         specs: [
             { label: "Type", value: "Rigid Carton" },
         ],
@@ -228,7 +233,7 @@ export const products = [
         category: "Nutraceuticals",
         image: nutraceuticals_6,
         specs: [
-            { label: "Type", value: "Mono Cartons" },
+            { label: "Type", value: "Corrugated Carton" },
         ],
     },
     {
@@ -244,38 +249,38 @@ export const products = [
     // PHARMA
     {
         id: 22,
-        name: "Femifast-Ultra",
-        category: "Pharmaceuticals",
+        name: "Rage Coffee",
+        category: "Food",
         image: pharmaceuticals_1,
         specs: [
-            { label: "Type", value: "Mono Cartons" },
+            { label: "Type", value: "Spot UV" },
         ],
     },
     {
         id: 23,
-        name: "Acklofen Plus",
+        name: "Parakind-500",
         category: "Pharmaceuticals",
         image: pharmaceuticals_2,
         specs: [
-            { label: "Type", value: "Mono Cartons" },
+            { label: "Type", value: "Spot UV" },
         ],
     },
     {
         id: 24,
-        name: "ANCEF",
+        name: "Arthrigel",
         category: "Pharmaceuticals",
         image: pharmaceuticals_3,
         specs: [
-            { label: "Type", value: "Mono Cartons" },
+            { label: "Type", value: "Spot UV" },
         ],
     },
     {
         id: 25,
-        name: "Dapoxilar-30",
+        name: "Chymoral",
         category: "Pharmaceuticals",
         image: pharmaceuticals_4,
         specs: [
-            { label: "Type", value: "Metallic Finish" },
+            { label: "Type", value: "Matte & Gloss" },
         ],
     },
     {
@@ -284,7 +289,7 @@ export const products = [
         category: "Pharmaceuticals",
         image: pharmaceuticals_5,
         specs: [
-            { label: "Type", value: "Metallic Finish" },
+            { label: "Type", value: "Matte & Gloss" },
         ],
     },
     {
@@ -312,6 +317,42 @@ export const products = [
         image: pharmaceuticals_8,
         specs: [
             { label: "Type", value: "Mono Cartons" },
+        ],
+    },
+    {
+        id: 30,
+        name: "Sun Ease",
+        category: "Pharmaceuticals",
+        image: window_1,
+        specs: [
+            { label: "Type", value: "Window Cartons" },
+        ],
+    },
+    {
+        id: 31,
+        name: "Charcoal",
+        category: "Cosmetics",
+        image: windows_2,
+        specs: [
+            { label: "Type", value: "Window Cartons" },
+        ],
+    },
+    {
+        id: 32,
+        name: "Yehi Chahiye - Anjeer",
+        category: "Food",
+        image: window_3,
+        specs: [
+            { label: "Type", value: "Window Cartons" },
+        ],
+    },
+    {
+        id: 33,
+        name: "Derm Ease",
+        category: "Cosmetics",
+        image: window_4,
+        specs: [
+            { label: "Type", value: "Window Cartons" },
         ],
     },
 ];
@@ -343,11 +384,6 @@ const ProductCard = ({ product }) => (
                     </p>
                 ))}
             </div>
-
-            {/* CTA */}
-            <button className="w-full border border-blue-600 text-blue-600 text-xs font-semibold uppercase tracking-wider py-2 px-4 hover:bg-blue-600 hover:text-white transition-colors duration-200">
-                <a href="https://wa.me/9810152101">Request Quote</a>
-            </button>
         </div>
     </div>
 );
@@ -373,7 +409,7 @@ const Products = () => {
                 {/* ── Section Header ── */}
                 <div className="text-center mb-12">
                     <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight mb-3">
-                        Our Products
+                        Our Finishes
                     </h1>
                     <p className="text-gray-500 text-base max-w-xl mx-auto leading-relaxed">
                         High-performance packaging solutions engineered for reliability,

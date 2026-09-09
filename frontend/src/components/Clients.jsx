@@ -9,17 +9,24 @@ import ranbaxy from '../assets/logos/ranbaxy.png'
 import synokem from '../assets/logos/synokem.png'
 import yaxon from '../assets/logos/yaxon.png'
 import zydus from '../assets/logos/zydus.png'
+import prochem from '../assets/logos/prochem.png'
+import alchemist from '../assets/logos/alchemist.png'
 
 const companies = [
-  { name: "Dr. Morepen", logo: dr_morepen, initials: "DM", color: "#3B82F6" },
-  { name: "Mankind", logo: mankind, initials: "MK", color: "#10B981" },
+  // main clients
   { name: "Ranbaxy", logo: ranbaxy, initials: "RX", color: "#F59E0B" },
-  { name: "Zydus", logo: zydus, initials: "ZY", color: "#8B5CF6" },
-  { name: "Yaxon Healthcare", logo: yaxon, initials: "YH", color: "#EC4899" },
-  { name: "Lark Industries", logo: lark, initials: "LI", color: "#14B8A6" },
-  { name: "Synochem Pharma", logo: synokem, initials: "SP", color: "#F97316" },
   { name: "Glenmark", logo: glenmark, initials: "GL", color: "#06B6D4" },
-  { name: "Primal Group", logo: primal, initials: "PG", color: "#EF4444" },
+
+  // channel partners
+  { name: "Yaxon Pharmaceuticals", logo: yaxon, initials: "YH", color: "#EC4899" },
+  { name: "Synochem Pharma", logo: synokem, initials: "SP", color: "#F97316" },
+  { name: "Lark Industries", logo: lark, initials: "LI", color: "#14B8A6" },
+  { name: "prochem", logo: prochem, initials: "PC", color: "#F59E0B" },
+  { name: "Alchemist", logo: alchemist, initials: "AC", color: "#8B5CF6" },
+  // { name: "Dr. Morepen", logo: dr_morepen, initials: "DM", color: "#3B82F6" },
+  // { name: "Mankind", logo: mankind, initials: "MK", color: "#10B981" },
+  // { name: "Zydus", logo: zydus, initials: "ZY", color: "#8B5CF6" },
+  // { name: "Primal Group", logo: primal, initials: "PG", color: "#EF4444" },
 ];
 
 const marqueeItems = [...companies, ...companies, ...companies];
@@ -57,7 +64,7 @@ const stats = [
 const partnerHighlights = [
   {
     label: "Pharmaceutical Partners",
-    names: "Yaxon Healthcare, Lark Laboratories, Synochem Pharma",
+    names: "Yaxon  Pharmaceutical, Lark Laboratories, Synochem Pharma",
     note: "Channel partners for Zydus, Mankind, Ranbaxy & Glenmark.",
   },
   {
@@ -74,7 +81,7 @@ const partnerHighlights = [
 
 // Pharma partners list
 const pharmaPartners = [
-  "Yaxon Healthcare",
+  "Yaxon  Pharmaceutical",
   "Lark Laboratories",
   "Synochem Pharma",
   "Pro Chem (Channel Partners for Zydus, Mankind, Ranbaxy & Glenmark)",
@@ -290,12 +297,6 @@ export default function TrustedBy() {
 
       {/* ── Partners intro block ── */}
       <div className="relative z-10 max-w-[700px] mx-auto px-6 sm:px-10 mb-10 text-center">
-        <p className="text-[#E8820C] text-[25px] md:text-[40px] font-bold tracking-[0.1em] uppercase mb-3">
-          Who We Work With
-        </p>
-        <h3 className="text-white text-[20px] md:text-[30px] font-bold mb-3">
-          Trusted by Leading Brands Across Segments
-        </h3>
         <p className="text-white/75 text-[clamp(14px,1.4vw,16px)] leading-relaxed mb-5">
           In addition to pharmaceutical packaging, we also have strong expertise in commercial
           and consumer packaging segments. Our experience includes working with:

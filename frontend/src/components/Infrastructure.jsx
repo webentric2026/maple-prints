@@ -1,223 +1,88 @@
 // Infrastructure.jsx
-import { useState, useEffect, useRef } from "react";
-
-// ── Import your machine images ──
-import machine1 from "../assets/images/Machines/machine-1.jpeg";
-import machine2 from "../assets/images/Machines/machine-2.jpeg";
-import machine3 from "../assets/images/Machines/machine-3.jpeg";
-import machine4 from "../assets/images/Machines/machine-4.jpeg";
 
 // ─────────────────────────────────────────────
-//  SLIDESHOW IMAGES  (independent of the list)
-//  Add / remove images freely — the list won't change
-// ─────────────────────────────────────────────
-const slideshowImages = [
-    { src: machine1, caption: "Paper Cutting — POLAR" },
-    { src: machine2, caption: "4 Colour KBA Press" },
-    { src: machine3, caption: "Heidelberg Hybrid / UV" },
-    { src: machine4, caption: "Die Cutting Unit" },
-    { src: machine3, caption: "Auto Gluing & Pasting" },
-];
-
-// ─────────────────────────────────────────────
-//  MACHINERY BULLET LIST  (independent of the slideshow)
-//  Edit names here freely without touching the images
+//  MACHINERY LIST
+//  Written from a box-maker's point of view:
+//  what each machine does FOR the packaging.
 // ─────────────────────────────────────────────
 const machineryList = [
-    { id: 1, name: "POLAR" },
-    { id: 2, name: "Roland 700 – 5 Colour with Coater (UV)" },
-    { id: 3, name: "4 colour KBA" },
-    { id: 4, name: "Heildberg" },
-    { id: 5, name: "Dye Cutting" },
+    {
+        id: 1,
+        name: "POLAR Paper Cutter",
+        tag: "Cutting",
+        blurb:
+            "Boards cut clean and true to size, so every carton folds square with crisp, even edges.",
+    },
+    {
+        id: 2,
+        name: "Roland 700 — 5 Colour with UV Coater",
+        tag: "Printing + Coating",
+        blurb:
+            "Rich, consistent brand colour sealed under a protective coat for a premium on-shelf look.",
+    },
+    {
+        id: 3,
+        name: "KBA — 4 Colour Press",
+        tag: "High-Volume Printing",
+        blurb:
+            "Sharp, repeatable colour across long runs — ideal for large carton orders with zero shade shift.",
+    },
+    {
+        id: 4,
+        name: "Heidelberg — Hybrid / UV",
+        tag: "Specialty Finishing",
+        blurb:
+            "Tough, scuff-resistant surfaces with a deep gloss effect, so boxes look new from factory to shelf.",
+    },
+    {
+        id: 5,
+        name: "Auto Die Cutting",
+        tag: "Cutting + Creasing",
+        blurb:
+            "Exact cutting and creasing, so cartons erect smoothly, lock firmly, and hold their shape.",
+    },
 ];
 
 // ─────────────────────────────────────────────
-//  IMAGE SLIDESHOW (right panel — fully standalone)
+//  MACHINERY LIST
 // ─────────────────────────────────────────────
-function ImageSlideshow() {
-    const [current, setCurrent] = useState(0);
-    const intervalRef = useRef(null);
-    const total = slideshowImages.length;
-
-    const startTimer = () => {
-        clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(() => {
-            setCurrent((prev) => (prev + 1) % total);
-        }, 3500);
-    };
-
-    useEffect(() => {
-        startTimer();
-        return () => clearInterval(intervalRef.current);
-    }, []);
-
-    const go = (dir) => {
-        setCurrent((prev) => (prev + dir + total) % total);
-        startTimer();
-    };
-
-    const goTo = (i) => {
-        setCurrent(i);
-        startTimer();
-    };
-
+function MachineryList() {
     return (
-        <div className="flex flex-col gap-4">
-            {/* Main image frame */}
-            <div
-                className="relative overflow-hidden "
-                style={{ aspectRatio: "4/3" }}
+        <div className="flex h-full flex-col">
+            {/* <p
+                className="font-black mb-1 text-2xl md:text-[30px]"
+                style={{ color: "#E8820C", letterSpacing: "0.01em" }}
             >
-                {/* Slides */}
-                {slideshowImages.map((img, i) => (
-                    <div
-                        key={i}
-                        className="absolute inset-0 transition-opacity duration-700"
-                        style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
-                    >
-                        <img
-                            src={img.src}
-                            alt={img.caption}
-                            className="w-full h-full object-cover"
-                        />
-                        {/* Caption bar */}
-                        <div
-                            className="absolute bottom-0 left-0 right-0 px-5 py-3"
-                            style={{
-                                background:
-                                    "linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%)",
-                            }}
-                        >
-                            <p
-                                className="text-white font-semibold"
-                                style={{ fontSize: "13.5px", letterSpacing: "0.02em" }}
-                            >
-                                {img.caption}
-                            </p>
-                        </div>
-                    </div>
-                ))}
-
-                {/* Glow overlay */}
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                        background:
-                            "radial-gradient(ellipse 60% 40% at 50% 20%, rgba(232,130,12,0.08) 0%, transparent 70%)",
-                        zIndex: 2,
-                    }}
-                />
-
-                {/* Slide counter badge */}
-
-
-                {/* Prev arrow */}
-                <button
-                    onClick={() => go(-1)}
-                    aria-label="Previous"
-                    className="absolute left-3 top-1/2 z-10 flex items-center justify-center  transition-all duration-200 hover:scale-105"
-                    style={{
-                        width: "36px",
-                        height: "36px",
-                        transform: "translateY(-50%)",
-                        background: "rgba(0,0,0,0.45)",
-                        border: "1px solid rgba(255,255,255,0.15)",
-                        color: "rgba(255,255,255,0.8)",
-                        marginTop: 0,
-                    }}
-                >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                </button>
-
-                {/* Next arrow */}
-                <button
-                    onClick={() => go(1)}
-                    aria-label="Next"
-                    className="absolute right-3 top-1/2 z-10 flex items-center justify-center  transition-all duration-200 hover:scale-105"
-                    style={{
-                        width: "36px",
-                        height: "36px",
-                        transform: "translateY(-50%)",
-                        background: "rgba(0,0,0,0.45)",
-                        border: "1px solid rgba(255,255,255,0.15)",
-                        color: "rgba(255,255,255,0.8)",
-                        marginTop: 0,
-                    }}
-                >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M9 18l6-6-6-6" />
-                    </svg>
-                </button>
-            </div>
-
-            {/* Dot nav */}
-            <div className="flex items-center justify-center gap-2">
-                {slideshowImages.map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => goTo(i)}
-                        aria-label={`Go to slide ${i + 1}`}
-                        className="rounded-full transition-all duration-300 focus:outline-none"
-                        style={{
-                            width: i === current ? "24px" : "7px",
-                            height: "7px",
-                            background:
-                                i === current ? "#E8820C" : "#1E3A5F",
-                        }}
-                    />
-                ))}
-            </div>
-        </div>
-    );
-}
-
-// ─────────────────────────────────────────────
-//  MACHINERY BULLET LIST (left panel — fully standalone)
-// ─────────────────────────────────────────────
-function MachineryBulletList() {
-    return (
-        <div
-            className=" px-7 py-7 h-full"
-            style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.07)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-            }}
-        >
-            <p
-                className="font-black mb-5 text-[25px] md:[30px]"
-                style={{
-                    color: "#E8820C",
-                    letterSpacing: "0.01em",
-                }}
-            >
-                Few of the Machineries are
+                Key machines on our floor
             </p>
+            <p className="mb-6 text-sm leading-relaxed text-black/60 max-w-[46ch]">
+                Every machine here earns its place by what it does to your boxes —
+                sharper print, cleaner folds, tougher finishes.
+            </p> */}
 
-            <ul className="flex flex-col gap-2.5 ">
-                {machineryList.map((item) => (
+            <ul className="flex flex-col gap-3">
+                {machineryList.map((item, i) => (
                     <li
                         key={item.id}
-                        className="flex items-center gap-3 group"
+                        className="group flex items-start gap-4 border border-black/10 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
                     >
-                        {/* Bullet dot */}
+                        {/* Step number */}
                         <span
-                            className="flex-shrink-0 rounded-full mt-[6px]"
-                            style={{
-                                width: "7px",
-                                height: "7px",
-                                minWidth: "7px",
-                                background: "#E8820C",
-                                opacity: 0.85,
-                            }}
-                        />
-                        <span
-                            className="leading-snug text-l md:text-xl"
+                            className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-[13px] font-black text-white"
+                            style={{ background: "#1E3A5F" }}
+                            aria-hidden="true"
                         >
-                            {item.name}
+                            {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="min-w-0">
+                            <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                                <span className="text-[15px] font-bold leading-snug text-gray-900 md:text-base">
+                                    {item.name}
+                                </span>
+                            </span>
+                            <span className="mt-1 block text-[13.5px] leading-relaxed text-black/65">
+                                {item.blurb}
+                            </span>
                         </span>
                     </li>
                 ))}
@@ -231,10 +96,7 @@ function MachineryBulletList() {
 // ─────────────────────────────────────────────
 export default function Infrastructure() {
     return (
-        <section
-            className="relative w-full overflow-hidden py-20 md:py-28"
-
-        >
+        <section className="relative w-full overflow-hidden bg-white py-20 md:py-28">
             {/* Bg glow */}
             <div
                 className="absolute inset-0 pointer-events-none"
@@ -252,43 +114,16 @@ export default function Infrastructure() {
                 >
                     Our Infrastructure
                 </h2>
-                <p
-                    className="leading-relaxed max-w-[500px] text-black/75"
-
-                >
+                <p className="leading-relaxed max-w-[500px] text-black/75">
                     Powered by world-class machinery from globally trusted brands, ensuring
                     precision, consistency, and scale in every production run.
                 </p>
             </div>
 
-            {/* ── Two-Column Layout ── */}
-            <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-10">
-                <div
-                    className="infra-grid"
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: "32px",
-                        alignItems: "start",
-                    }}
-                >
-
-                    <ImageSlideshow />
-
-                    <MachineryBulletList />
-
-
-                </div>
+            {/* ── Machinery list, centred single column ── */}
+            <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-10">
+                <MachineryList />
             </div>
-
-            {/* Responsive: stack on mobile */}
-            <style>{`
-        @media (max-width: 768px) {
-          .infra-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
         </section>
     );
 }

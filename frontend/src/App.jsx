@@ -9,6 +9,9 @@ import ServicesPage from './pages/Services/ServicesPage'
 import FloatingContactButtons from './utils/FloatingContactButtons'
 import Products from './pages/Products'
 import ScrollToTop from './utils/ScrollToTop'
+import NewHero from './components/NewHero'
+import Clients from './components/Clients'
+import WhyChooseUs from './components/WhyMaple'
 
 const App = () => {
     return (
@@ -19,9 +22,12 @@ const App = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/about' element={<AboutMain />} />
+                <Route path='/clients' element={<Clients />} />
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/services' element={<ServicesPage />} />
                 <Route path='/products' element={<Products />} />
+                <Route path='/testing' element={<NewHero />} />
+                <Route path='/why-choose-us' element={<WhyChooseUs />} />
             </Routes>
             <Footer />
         </div>
