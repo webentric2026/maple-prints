@@ -1,37 +1,42 @@
-// Clients.jsx — CLIENTS & CHANNEL PARTNERSHIPS
-//
-// ── HOW TO ADD / CHANGE A LOGO (template) ─────────────────────────────
-// 1. Drop your logo file into:  src/assets/logos/   (e.g. my-client.png)
-// 2. Import it at the top:      import myclient from '../assets/logos/my-client.png'
-// 3. Find the company in directClients / channelPartners below and set:
-//       logo: myclient   (instead of null)
-//    To remove a logo, set logo: null — an initials badge will show automatically.
-// 4. To add a brand-new company, copy-paste a line:
-//       { name: "New Company", logo: null, initials: "NC", color: "#E8820C" },
-// ───────────────────────────────────────────────────────────────────────
-
 import { useState } from "react";
-import lark from '../assets/logos/lark.png'
-import prochem from '../assets/logos/prochem.png'
-import yaxon from '../assets/logos/yaxon.png'
-import synokem from '../assets/logos/synokem.png'
-import mankind from '../assets/logos/mankind.png'
-import alchemist from '../assets/logos/alchemist.png'
-import glenmark from '../assets/logos/glenmark.png'
-import ranbaxy from '../assets/logos/ranbaxy.png'
+
+// ── Direct Clients (8/10 logos present — Pro Chem & Pro Pharma pending) ──
+import unijules from '../assets/logos/clients/unijules.png'
+import lark from '../assets/logos/clients/lark.png'
+import jaypee from '../assets/logos/clients/jaypee.png'
+import yaxon from '../assets/logos/clients/yaxon.png'
+import skymap from '../assets/logos/clients/skymap.png'
+import rapross from '../assets/logos/clients/rapross.png'
+import apple from '../assets/logos/clients/apple.png'
+import synokem from '../assets/logos/clients/synokem.png'
+
+// ── Channel Partners (11/14 logos present) ──
+import mankind from '../assets/logos/channel_partners/mankind.png'
+import alchemist from '../assets/logos/channel_partners/alchemist.png'
+import glenmark from '../assets/logos/channel_partners/glenmark.png'
+import ranbaxy from '../assets/logos/channel_partners/ranbaxy.png'
+import cipla from '../assets/logos/channel_partners/cipla.webp'
+import sunPharma from '../assets/logos/channel_partners/sun-pharma.png'
+import abbott from '../assets/logos/channel_partners/abott.png'
+import davaIndia from '../assets/logos/channel_partners/dava-india.png'
+import ipca from '../assets/logos/channel_partners/ipca.png'
+import drMorepen from '../assets/logos/channel_partners/Dr. Morepen.png'
+import primal from '../assets/logos/channel_partners/primal.png'
 
 // ── LIST 1: Direct Clients ─────────────────────────────────────────────
-// Logos wired where we have files. Rest use initials badge until you add logos.
+// To add Pro Chem / Pro Pharma logos later:
+//   1. Drop file into src/assets/logos/clients/ (e.g. pro-chem.png)
+//   2. import proChem from '../assets/logos/clients/pro-chem.png'
+//   3. Set logo: proChem instead of null below.
 const directClients = [
-  { name: "Unijules", logo: null, initials: "UJ", color: "#3B82F6" },
+  { name: "Unijules", logo: unijules, logo: unijules, color: "#3B82F6" },
   { name: "Lark Laboratories", logo: lark, initials: "LL", color: "#14B8A6" },
-  { name: "Pro Chem Pharmaceuticals", logo: prochem, initials: "PC", color: "#F59E0B" },
-  { name: "Pro Pharma", logo: null, initials: "PP", color: "#8B5CF6" },
-  { name: "Jaypee Laboratories", logo: null, initials: "JL", color: "#10B981" },
+
+  { name: "Jaypee Laboratories", logo: jaypee, initials: "JL", color: "#10B981" },
   { name: "Yaxon", logo: yaxon, initials: "YX", color: "#EC4899" },
-  { name: "Sky Map", logo: null, initials: "SM", color: "#06B6D4" },
-  { name: "Rapross", logo: null, initials: "RP", color: "#EF4444" },
-  { name: "Apple Formulation", logo: null, initials: "AF", color: "#84CC16" },
+  { name: "Sky Map", logo: skymap, initials: "SM", color: "#06B6D4" },
+  { name: "Rapross", logo: rapross, initials: "RP", color: "#EF4444" },
+  { name: "Apple Formulation", logo: apple, initials: "AF", color: "#84CC16" },
   { name: "Synokem Pharmaceuticals", logo: synokem, initials: "SP", color: "#F97316" },
 ];
 
@@ -41,15 +46,16 @@ const channelPartners = [
   { name: "Alchemist", logo: alchemist, initials: "AL", color: "#8B5CF6" },
   { name: "Glenmark", logo: glenmark, initials: "GL", color: "#06B6D4" },
   { name: "Ranbaxy", logo: ranbaxy, initials: "RX", color: "#F59E0B" },
-  { name: "Cipla", logo: null, initials: "CI", color: "#3B82F6" },
-  { name: "Sun Pharmaceuticals", logo: null, initials: "SN", color: "#EF4444" },
-  { name: "Abbott Laboratories", logo: null, initials: "AB", color: "#14B8A6" },
-  { name: "Cadillac", logo: null, initials: "CA", color: "#F97316" },
-  { name: "Dava India", logo: null, initials: "DV", color: "#84CC16" },
-  { name: "Ipca", logo: null, initials: "IP", color: "#EC4899" },
-  { name: "Alchem", logo: null, initials: "AC", color: "#E8820C" },
-  { name: "Torrent", logo: null, initials: "TO", color: "#6366F1" },
-  { name: "And other leading pharma companies", logo: null, initials: "+", color: "#E8820C" },
+  { name: "Cipla", logo: cipla, initials: "CI", color: "#3B82F6" },
+  { name: "Sun Pharmaceuticals", logo: sunPharma, initials: "SN", color: "#EF4444" },
+  { name: "Abbott Laboratories", logo: abbott, initials: "AB", color: "#14B8A6" },
+  { name: "Dava India", logo: davaIndia, initials: "DV", color: "#84CC16" },
+  { name: "Ipca", logo: ipca, initials: "IP", color: "#EC4899" },
+  { name: "Dr. Morepen", logo: drMorepen, initials: "DM", color: "#38BDF8" },
+  { name: "Primal", logo: primal, initials: "PR", color: "#F43F5E" },
+  // { name: "Cadillac", logo: null, initials: "CA", color: "#F97316" },
+  // { name: "Alchem", logo: null, initials: "AC", color: "#E8820C" },
+  // { name: "Torrent", logo: null, initials: "TO", color: "#6366F1" },
 ];
 
 // Tripled for seamless loop
