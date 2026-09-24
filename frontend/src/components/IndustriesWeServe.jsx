@@ -1,29 +1,52 @@
 import React, { useEffect, useRef, useState } from "react";
 
+// ── HOW TO ADD / CHANGE IMAGES (1:1 template) ──────────────────────────
+// 1. Drop your square image into: src/assets/images/ (or Products/)
+//    Tip: use 800x800px or 1000x1000px for best 1:1 quality.
+// 2. Import it here, e.g.:
+//      import pharmaImg from "../assets/images/Products/pharma-6.png";
+// 3. Set it on the matching industry below:
+//      { title: "...", desc: "...", image: pharmaImg }
+//    To hide image for an item, set image: null.
+//    Images render with `aspect-square object-cover` = always 1:1.
+// ───────────────────────────────────────────────────────────────────────
+import pharmaImg from "../assets/images/Products/pharma-6.png";
+import cosmeticImg from "../assets/images/Products/cosmetic-1.png";
+import ayurvedicImg from "../assets/images/Products/ayurvedic-1.png";
+import fmcgImg from "../assets/images/Products/food-1.png";
+import electronicsImg from "../assets/images/Products/electric-1.png";
+import accessoriesImg from "../assets/images/Products/CB-1.jpg";
+
 const industries = [
     {
         title: "Pharmaceutical & Healthcare",
         desc: "Precision-driven packaging solutions developed to meet stringent quality and compliance standards required in the pharmaceutical sector.",
+        image: pharmaImg,
     },
     {
         title: "Cosmetics & Personal Care",
         desc: "Premium packaging designed to enhance shelf appeal, strengthen brand identity, and create a luxurious customer experience.",
+        image: cosmeticImg,
     },
     {
         title: "Ayurvedic & Herbal Products",
         desc: "Packaging solutions that combine natural aesthetics with modern printing standards to reflect authenticity and trust.",
+        image: ayurvedicImg,
     },
     {
         title: "FMCG (Fast-Moving Consumer Goods)",
         desc: "High-volume packaging solutions focused on consistency, visual impact, and efficient production turnaround.",
+        image: fmcgImg,
     },
     {
         title: "Electronics & Appliances",
         desc: "Durable and structurally reliable cartons designed for product protection while maintaining premium presentation standards.",
+        image: electronicsImg,
     },
     {
         title: "Accessories & Consumer Products",
         desc: "Retail-focused packaging solutions created to maximize visual appeal and strengthen shelf presence.",
+        image: accessoriesImg,
     },
 ];
 
@@ -131,20 +154,33 @@ export default function IndustriesWeServe() {
                 {industries.map((item, i) => (
                     <div
                         key={i}
-                        className="border border-black/8 p-5 flex flex-col gap-2"
+                        className="border border-black/8 overflow-hidden flex flex-col"
                         style={{
                             background: "rgba(255,255,255,0.04)",
                             backdropFilter: "blur(10px)",
                             WebkitBackdropFilter: "blur(10px)",
                         }}
                     >
-                        <h4 className="text-black font-semibold text-[18px] leading-snug">
-                            {item.title}
-                        </h4>
+                        {/* 1:1 Image */}
+                        {item.image && (
+                            <div className="w-full aspect-square overflow-hidden bg-black/5">
+                                <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    className="w-full h-full aspect-square object-cover hover:scale-105 transition-transform duration-500"
+                                    loading="lazy"
+                                />
+                            </div>
+                        )}
+                        <div className="p-5 flex flex-col gap-2">
+                            <h4 className="text-black font-semibold text-[18px] leading-snug">
+                                {item.title}
+                            </h4>
 
-                        <p className="text-black/60 text-[13px] leading-relaxed">
-                            {item.desc}
-                        </p>
+                            <p className="text-black/60 text-[13px] leading-relaxed">
+                                {item.desc}
+                            </p>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -168,20 +204,33 @@ export default function IndustriesWeServe() {
                     {industries.map((item, i) => (
                         <div
                             key={i}
-                            className="flex-shrink-0 w-[85vw] snap-start border border-black/8  p-5 flex flex-col gap-2"
+                            className="flex-shrink-0 w-[85vw] snap-start border border-black/8 overflow-hidden flex flex-col"
                             style={{
                                 background: "rgba(255,255,255,0.04)",
                                 backdropFilter: "blur(10px)",
                                 WebkitBackdropFilter: "blur(10px)",
                             }}
                         >
-                            <h4 className="text-black font-semibold text-[25px] leading-snug">
-                                {item.title}
-                            </h4>
+                            {/* 1:1 Image */}
+                            {item.image && (
+                                <div className="w-full aspect-square overflow-hidden bg-black/5">
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="w-full h-full aspect-square object-cover"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            )}
+                            <div className="p-5 flex flex-col gap-2">
+                                <h4 className="text-black font-semibold text-[25px] leading-snug">
+                                    {item.title}
+                                </h4>
 
-                            <p className="text-black/60 text-[16px] leading-relaxed">
-                                {item.desc}
-                            </p>
+                                <p className="text-black/60 text-[16px] leading-relaxed">
+                                    {item.desc}
+                                </p>
+                            </div>
                         </div>
                     ))}
                 </div>
