@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /testing
+
+Sitemap: https://www.mapleprints.in/sitemap.xml
