@@ -20,34 +20,33 @@ export default function Navbar() {
     const toggleRef = useRef(null);
     const infoBarRef = useRef(null);
 
+    // Scroll state only — no measuring here so no stale-closure races.
     useEffect(() => {
-        const updateInfoBarHeight = () => {
-            setInfoBarHeight(infoVisible && infoBarRef.current ? infoBarRef.current.offsetHeight : 0);
-        };
-
         const onScroll = () => {
             setScrolled(window.scrollY > 10);
             setInfoVisible(window.scrollY < 40);
         };
 
         onScroll();
-        updateInfoBarHeight();
 
         window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", updateInfoBarHeight);
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
-        return () => {
-            window.removeEventListener("scroll", onScroll);
-            window.removeEventListener("resize", updateInfoBarHeight);
-        };
-    }, [infoVisible]);
-
+    // Measure with scrollHeight (full content height, unaffected by the
+    // max-height open/close animation). offsetHeight was measured mid-transition,
+    // giving the nav a partial offset so the info bar peeked out from behind it.
     useEffect(() => {
-        const updateInfoBarHeight = () => {
-            setInfoBarHeight(infoVisible && infoBarRef.current ? infoBarRef.current.offsetHeight : 0);
+        const measure = () => {
+            setInfoBarHeight(infoVisible && infoBarRef.current ? infoBarRef.current.scrollHeight : 0);
         };
 
-        updateInfoBarHeight();
+        measure();
+        window.addEventListener("resize", measure);
+        if (document.fonts?.ready) {
+            document.fonts.ready.then(measure).catch(() => {});
+        }
+        return () => window.removeEventListener("resize", measure);
     }, [infoVisible]);
 
     useEffect(() => {
@@ -77,9 +76,9 @@ export default function Navbar() {
         <>
             <div
                 ref={infoBarRef}
-                className="fixed top-0 left-0 w-full z-49 bg-[#1E3A5F] text-white overflow-hidden"
+                className="fixed top-0 left-0 w-full z-40 bg-[#1E3A5F] text-white overflow-hidden"
                 style={{
-                    maxHeight: infoVisible ? "140px" : "0px",
+                    maxHeight: infoVisible ? "200px" : "0px",
                     opacity: infoVisible ? 1 : 0,
                     transition: "max-height 300ms cubic-bezier(0.16,1,0.3,1), opacity 250ms ease",
                     pointerEvents: infoVisible ? "auto" : "none",
@@ -114,7 +113,7 @@ export default function Navbar() {
             </div>
 
             <nav
-                className="fixed left-0 w-full min-h-[72px] md:h-18 flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32 bg-white backdrop-blur-md border-b border-b-black/10 z-49"
+                className="fixed left-0 w-full min-h-[64px] sm:min-h-[72px] lg:h-20 flex items-center gap-2 sm:gap-3 px-4 sm:px-6 md:px-4 lg:px-8 xl:px-12 2xl:px-20 bg-white/95 backdrop-blur-md border-b border-b-black/10 z-40"
                 style={{
                     top: `${infoBarHeight}px`,
                     transition: "top 300ms cubic-bezier(0.16,1,0.3,1)",
@@ -124,22 +123,23 @@ export default function Navbar() {
             >
                 <a
                     href="/"
-                    className="flex items-center gap-2 sm:gap-2.5 min-w-0 outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                    className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 md:flex-none outline-none focus-visible:ring-2 focus-visible:ring-white/30"
                     aria-label="Mapple Prints – home"
                 >
-                    <img src={logo} alt="" className="w-9 sm:w-10 md:w-11 lg:w-13 shrink-0" />
-                    <span className="text-[18px] xs:text-[20px] sm:text-[22px] md:text-[28px] lg:text-[32px] font-bold tracking-tight text-[#1E3A5F] leading-none whitespace-nowrap">
+                    <img src={logo} alt="" className="w-8 sm:w-10 md:w-9 lg:w-11 xl:w-12 shrink-0" />
+                    <span className="text-[17px] sm:text-[20px] md:text-[17px] lg:text-[24px] xl:text-[30px] font-bold tracking-tight text-[#1E3A5F] leading-none whitespace-nowrap truncate">
                         MAPLE <span className="text-[#E09A00]">PRINTS</span>
                     </span>
                 </a>
 
-                <ul className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8" role="list">
+                {/* Desktop links — md+ so the full nav stays unstacked everywhere the hero is unstacked (≥768px) */}
+                <ul className="hidden md:flex items-center gap-3 lg:gap-5 xl:gap-7 2xl:gap-8 mx-auto" role="list">
                     {NAV_LINKS.map(({ label, href }) => (
                         <li key={label}>
                             <NavLink
                                 to={href}
                                 className={({ isActive }) =>
-                                    `text-[13px] lg:text-[14px] font-semibold uppercase tracking-[0.06em] transition-colors duration-200 ${isActive
+                                    `text-[11px] lg:text-[12px] xl:text-[13px] font-semibold uppercase tracking-[0.04em] lg:tracking-[0.06em] whitespace-nowrap transition-colors duration-200 ${isActive
                                         ? "text-[#E09A00] decoration-6 underline underline-offset-[24px]"
                                         : "text-[#1E3A5F]/95 hover:text-[#E09A00]"
                                     }`
@@ -154,7 +154,7 @@ export default function Navbar() {
                 <div className="hidden md:block shrink-0">
                     <a
                         href="/contact"
-                        className="inline-flex items-center justify-center h-11 lg:h-12 px-6 lg:px-10 text-sm font-semibold text-white bg-[#E09A00] shadow-md transition-all duration-200 hover:bg-[#c98700] hover:shadow-lg active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#E09A00] whitespace-nowrap"
+                        className="inline-flex items-center justify-center h-9 px-4 text-[12px] lg:h-10 lg:px-5 lg:text-[13px] xl:h-12 xl:px-8 xl:text-sm font-semibold text-white bg-[#E09A00] shadow-md transition-all duration-200 hover:bg-[#c98700] hover:shadow-lg active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#E09A00] whitespace-nowrap"
                     >
                         Contact
                     </a>
@@ -163,7 +163,7 @@ export default function Navbar() {
                 <button
                     ref={toggleRef}
                     type="button"
-                    className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center text-[#1E3A5F] outline-none transition-colors duration-150 hover:text-[#f0a500] focus-visible:ring-2 focus-visible:ring-[#1b3a8f] md:hidden shrink-0"
+                    className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center text-[#1E3A5F] outline-none transition-colors duration-150 hover:text-[#f0a500] focus-visible:ring-2 focus-visible:ring-[#1b3a8f] md:hidden shrink-0"
                     aria-label={menuOpen ? "Close menu" : "Open menu"}
                     aria-expanded={menuOpen}
                     aria-controls="mobile-nav"
@@ -175,7 +175,7 @@ export default function Navbar() {
 
             {menuOpen && (
                 <div
-                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 md:hidden"
+                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
                     onClick={() => setMenuOpen(false)}
                     aria-hidden="true"
                 />
@@ -187,7 +187,7 @@ export default function Navbar() {
                 role="dialog"
                 aria-modal="true"
                 aria-label="Navigation menu"
-                className="fixed top-0 right-0 h-dvh w-full bg-white shadow-[-8px_0_32px_rgba(27,58,143,0.12)] md:hidden flex flex-col overflow-y-auto z-50"
+                className="fixed top-0 right-0 h-dvh w-full max-w-[420px] sm:max-w-[440px] bg-white shadow-[-8px_0_32px_rgba(27,58,143,0.12)] md:hidden flex flex-col overflow-y-auto z-50"
                 style={{
                     transformOrigin: "right",
                     transform: menuOpen ? "translateX(0)" : "translateX(100%)",
@@ -254,6 +254,9 @@ export default function Navbar() {
                     </a>
                 </div>
             </div>
+
+            {/* Spacer — reserves space for fixed info bar + nav so hero/heading never slides underneath */}
+            <div aria-hidden="true" style={{ height: infoBarHeight + 72 }} className="w-full" />
         </>
     );
 }

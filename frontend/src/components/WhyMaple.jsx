@@ -196,7 +196,7 @@ export default function WhyMaple() {
                 {/* ── Stats strip ── */}
                 <div className="mt-14">
                     <div
-                        className=" border border-white/8 px-6 py-8 grid grid-cols-3 gap-6"
+                        className=" border border-white/8 px-4 sm:px-6 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6"
                         style={{ background: "rgba(255,255,255,0.04)", backdropFilter: "blur(12px)" }}
                     >
                         {[

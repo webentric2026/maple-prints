@@ -143,7 +143,7 @@ export default function IndustriesWeServe() {
     return (
         <div className="relative z-10 max-w-[1000px] mx-auto px-6 sm:px-10 py-4">
             {/* Heading */}
-            <p className="text-[#1E3A5F] text-center font-black leading-[1.1] tracking-tight mb-4 text-[50px] md:text-[60px] py-10 items-center flex flex-col">
+            <p className="text-[#1E3A5F] text-center font-black leading-[1.1] tracking-tight mb-4 text-[clamp(1.9rem,6vw,3.75rem)] py-8 sm:py-10 items-center flex flex-col px-4 break-words">
                 Industries We Serve
                 <div className="w-14 h-[3px] rounded-full bg-[#E8820C] mt-2 " />
             </p>

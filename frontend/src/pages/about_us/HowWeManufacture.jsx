@@ -72,7 +72,7 @@ function StepItem({ icon: Icon, label, index, total }) {
 export default function HowWeManufacture() {
     return (
         <section
-            className="relative w-full py-16 sm:py-20 md:py-24 hidden md:flex"
+            className="relative w-full py-16 sm:py-20 md:py-24 flex"
             style={{ background: "#F8F9FA" }}
         >
             <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10">
@@ -90,7 +90,7 @@ export default function HowWeManufacture() {
                         Workflow
                     </p>
 
-                    <h2 className="font-black text-black leading-[1.15] tracking-tight text-[40px]">
+                    <h2 className="font-black text-black leading-[1.15] tracking-tight text-[clamp(1.7rem,5.5vw,2.5rem)] px-4 break-words">
                         How We Manufacture Excellence
                     </h2>
                 </div>

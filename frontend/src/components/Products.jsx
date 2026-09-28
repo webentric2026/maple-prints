@@ -154,7 +154,7 @@ export default function Products() {
 
             {/* ── Heading ── */}
             <div className="flex flex-col items-center text-center px-4 mb-14">
-                <h2 className="text-[#1E3A5F] font-black leading-[1.1] tracking-tight mb-4 text-[50px] md:text-[60px]">
+                <h2 className="text-[#1E3A5F] font-black leading-[1.1] tracking-tight mb-4 text-[clamp(1.9rem,6vw,3.75rem)] break-words">
                     Products
                 </h2>
                 {/* Accent underline */}

@@ -149,7 +149,7 @@ export default function TrustedBy() {
 
   return (
     <section
-      className="relative w-full overflow-hidden py-20 md:py-15"
+      className="relative w-full overflow-x-clip overflow-y-hidden py-16 sm:py-20 lg:py-24"
       style={{
         background: "linear-gradient(160deg, #05122B 0%, #0A1A3A 50%, #060D1F 100%)",
         "--card-w": "220px",
@@ -199,7 +199,7 @@ export default function TrustedBy() {
 
       {/* ── Header ── */}
       <div className="relative z-10 flex flex-col items-center text-center px-4 mb-14">
-        <h2 className="text-white font-black leading-[1.1] tracking-tight mb-4 text-[clamp(32px,5vw,60px)]">
+        <h2 className="text-white font-black leading-[1.1] tracking-tight mb-4 text-[clamp(1.7rem,5.5vw,3.75rem)] px-4 break-words">
           CLIENTS &amp; CHANNEL PARTNERSHIPS
         </h2>
         <div className="w-14 h-[3px] rounded-full bg-[#E8820C] mt-2" />

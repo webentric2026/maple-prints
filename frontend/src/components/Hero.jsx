@@ -24,12 +24,13 @@ const AUTOPLAY_MS = 4000;
 
 function HeroHeading() {
     return (
-        <div className="mt-15">
-            <h1 className="text-center md:text-left">
-                <span className="block text-[40px] md:text-[50px] lg:text-[60px] font-extrabold leading-[1.18] tracking-tight text-[#1E3A5F] max-w-[540px]">
+        <div className="w-full min-w-0">
+            {/* md+ = big-screen look (left-aligned, side-by-side); stacked+centered only below 768px */}
+            <h1 className="text-center md:text-left flex flex-col items-center md:items-start">
+                <span className="block w-full max-w-[560px] font-extrabold leading-[1.12] tracking-tight text-[#1E3A5F] text-[clamp(1.75rem,3.5vw+1rem,3.75rem)] break-words">
                     MAPLE <span className="text-[#E09A00]">PRINTS</span>
                 </span>
-                <span className="block text-[26px] md:text-[35px] lg:text-[40px] font-bold leading-[1.18] tracking-wide italic text-[#16181a] max-w-[540px] mb-0 underline decoration-1 underline-offset-4">
+                <span className="block w-full max-w-[560px] font-bold leading-[1.25] tracking-wide italic text-[#16181a] text-[clamp(1.1rem,2vw+0.6rem,2.5rem)] mt-2 break-words underline decoration-[#E09A00]/40 decoration-[3px] underline-offset-[6px]">
                     Premium Packaging & Printing Solutions
                 </span>
             </h1>
@@ -39,8 +40,8 @@ function HeroHeading() {
 
 function HeroDescription() {
     return (
-        <div className="flex flex-col">
-            <p className="text-[15px] md:text-[16px] leading-[1.7] text-black/90 mt-10 md:mt-0 max-w-[520px] mb-4">
+        <div className="flex flex-col items-center text-center md:items-start md:text-left w-full min-w-0">
+            <p className="text-[14.5px] sm:text-[15px] md:text-[14.5px] lg:text-[16px] leading-[1.7] text-black/90 w-full max-w-[560px] mb-4 break-words">
                 Maple Prints is a professionally managed packaging and printing
                 company specializing in the manufacturing of premium mono cartons
                 and paper-based packaging solutions. With a strong focus on
@@ -49,17 +50,17 @@ function HeroDescription() {
                 protection, brand positioning, and consumer perception.
             </p>
 
-            <p className="text-[15px] md:text-[16px] leading-[1.7] text-black/90 max-w-[520px] mb-4">
+            <p className="text-[14.5px] sm:text-[15px] md:text-[14.5px] lg:text-[16px] leading-[1.7] text-black/90 w-full max-w-[560px] mb-4 break-words">
                 Our strength lies in offering complete end-to-end packaging
                 solutions under one roof — from advanced printing to luxury
                 finishing applications — ensuring superior quality control, faster
                 turnaround times, and dependable execution.
             </p>
 
-            <div className="flex flex-wrap sm:flex-row flex-col items-stretch sm:items-center gap-3 sm:gap-4 mt-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 mt-3 w-full sm:w-auto">
                 <a
                     href="/about"
-                    className="inline-flex items-center justify-center h-12 px-8 text-sm font-semibold text-white bg-[#E09A00] shadow-md shadow-[#E09A00]/30 transition-all duration-200 hover:bg-[#c98700] hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]"
+                    className="inline-flex items-center justify-center h-12 px-8 text-sm font-semibold text-white bg-[#E09A00] shadow-md shadow-[#E09A00]/30 transition-all duration-200 hover:bg-[#c98700] hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] whitespace-nowrap"
                 >
                     Read More About Us
                 </a>
@@ -89,7 +90,7 @@ function SlideshowWindow() {
 
     return (
         <div
-            className="block relative w-full max-w-[380px] lg:max-w-[480px] mx-auto md:mt-15"
+            className="block relative w-full max-w-full mx-auto min-w-0"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocus={() => setPaused(true)}
@@ -102,7 +103,7 @@ function SlideshowWindow() {
                 {slides.map((slide, i) => (
                     <div
                         key={slide.id}
-                        className={`absolute inset-0 flex flex-col items-center justify-center px-9 pt-9 pb-20 transition-all duration-700 ease-out ${i === index
+                        className={`absolute inset-0 flex flex-col items-center justify-center px-4 pt-4 pb-16 sm:px-9 sm:pt-9 sm:pb-20 transition-all duration-700 ease-out ${i === index
                             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
                             : "opacity-0 scale-95 translate-y-2 pointer-events-none"
                             }`}
@@ -124,10 +125,10 @@ function SlideshowWindow() {
                 />
 
                 {/* ── Box name label — always visible ── */}
-                <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center gap-1.5 px-4 pt-6 pb-4  pointer-events-none">
+                <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center gap-1.5 px-3 sm:px-4 pt-6 pb-3 sm:pb-4 pointer-events-none">
                     <p
                         key={slides[index].id}
-                        className="pointer-events-auto inline-flex items-center justify-center px-5 py-2 bg-[#1E3A5F]/90 backdrop-blur-sm text-white text-[13px] md:text-sm font-semibold tracking-wide shadow-lg"
+                        className="pointer-events-auto inline-flex max-w-full items-center justify-center px-4 sm:px-5 py-2 bg-[#1E3A5F]/90 backdrop-blur-sm text-white text-[12px] sm:text-sm font-semibold tracking-wide shadow-lg truncate"
                         aria-live="polite"
                     >
                         {slides[index].name}
@@ -138,7 +139,7 @@ function SlideshowWindow() {
                     type="button"
                     onClick={prev}
                     aria-label={`Previous product, currently showing ${slides[index].name}`}
-                    className="absolute top-[50%] bottom-0 left-3.5 -translate-y-1/2 z-20 w-12 h-12 bg-white/85 backdrop-blur-sm text-[#16181a] text-xl leading-none flex items-center justify-center shadow-md transition-transform duration-200 hover:bg-white hover:scale-110 border border-[#16181a]/10"
+                    className="absolute top-1/2 left-2 sm:left-3.5 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 bg-white/85 backdrop-blur-sm text-[#16181a] text-xl leading-none flex items-center justify-center shadow-md transition-transform duration-200 hover:bg-white hover:scale-110 border border-[#16181a]/10"
                 >
                     ‹
                 </button>
@@ -146,7 +147,7 @@ function SlideshowWindow() {
                     type="button"
                     onClick={next}
                     aria-label={`Next product, currently showing ${slides[index].name}`}
-                    className="absolute top-[50%] right-3.5 -translate-y-1/2 z-20 w-12 h-12 bg-white/85 backdrop-blur-sm text-[#16181a] text-xl leading-none flex items-center justify-center shadow-md transition-transform duration-200 hover:bg-white hover:scale-110 border border-[#16181a]/10"
+                    className="absolute top-1/2 right-2 sm:right-3.5 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 bg-white/85 backdrop-blur-sm text-[#16181a] text-xl leading-none flex items-center justify-center shadow-md transition-transform duration-200 hover:bg-white hover:scale-110 border border-[#16181a]/10"
                 >
                     ›
                 </button>
@@ -174,30 +175,31 @@ function SlideshowWindow() {
 export default function MaplePrintsHeroSlideshow() {
     return (
         <section
-            className="relative w-full h-auto md:h-[80vh] mt-10 pb-10 overflow-hidden bg-[#FAFAF8] flex items-center isolate"
+            className="relative w-full overflow-x-clip overflow-y-hidden bg-[#FAFAF8] flex items-center isolate"
             aria-label="Maple Prints — Premium Packaging Solutions"
         >
             <div
-                className="absolute inset-0 z-0 bg-cover bg-center "
+                className="absolute inset-0 z-0 bg-cover bg-center opacity-30 sm:opacity-50 md:opacity-80 lg:opacity-100"
                 style={{ backgroundImage: `url(${hero_bg})` }}
                 aria-hidden="true"
             />
+            {/* Readability overlay on small screens so text never clashes with bg art */}
+            <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#FAFAF8]/85 via-[#FAFAF8]/60 to-[#FAFAF8]/90 md:from-transparent md:via-transparent md:to-transparent pointer-events-none" aria-hidden="true" />
             <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
                 <div className="absolute -top-[12%] -right-[8%] w-[55%] h-[65%] bg-[radial-gradient(circle,rgba(46,125,50,0.06)_0%,rgba(46,125,50,0)_70%)]" />
                 <div className="absolute -bottom-[18%] -left-[10%] w-[50%] h-[55%] bg-[radial-gradient(circle,rgba(30,58,95,0.05)_0%,rgba(30,58,95,0)_70%)]" />
             </div>
 
-            <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20 grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-10 lg:gap-0 md:items-center">
-                <div className="order-1 md:order-none md:col-start-1 md:row-start-1">
+            {/* Big-screen 2-col look kept down to md (768px); stacks only on phones/portrait-small tablets */}
+            <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-10 sm:py-12 md:py-14 lg:py-20 grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:grid-cols-2 gap-10 md:gap-6 lg:gap-12 items-center">
+                <div className="order-1 min-w-0 flex flex-col gap-6 md:gap-8 lg:gap-10">
                     <HeroHeading />
-                </div>
-
-                <div className="order-2 md:order-none md:col-start-2 md:row-start-1 md:row-span-2">
-                    <SlideshowWindow />
-                </div>
-
-                <div className="order-3 md:order-none md:col-start-1 md:row-start-2">
                     <HeroDescription />
+                </div>
+
+                {/* Capped cell width per breakpoint — slideshow fills the cell, never exceeds it */}
+                <div className="order-2 min-w-0 w-full max-w-[320px] sm:max-w-[360px] md:max-w-[320px] lg:max-w-[480px] justify-self-center md:justify-self-end">
+                    <SlideshowWindow />
                 </div>
             </div>
 
