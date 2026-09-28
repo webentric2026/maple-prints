@@ -15,10 +15,10 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [infoVisible, setInfoVisible] = useState(true);
-    const [infoBarHeight, setInfoBarHeight] = useState(0);
+    const [headerHeight, setHeaderHeight] = useState(0);
     const menuRef = useRef(null);
     const toggleRef = useRef(null);
-    const infoBarRef = useRef(null);
+    const headerRef = useRef(null);
 
     // Scroll state only — no measuring here so no stale-closure races.
     useEffect(() => {
@@ -33,21 +33,16 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    // Measure with scrollHeight (full content height, unaffected by the
-    // max-height open/close animation). offsetHeight was measured mid-transition,
-    // giving the nav a partial offset so the info bar peeked out from behind it.
-    useEffect(() => {
-        const measure = () => {
-            setInfoBarHeight(infoVisible && infoBarRef.current ? infoBarRef.current.scrollHeight : 0);
-        };
 
-        measure();
-        window.addEventListener("resize", measure);
-        if (document.fonts?.ready) {
-            document.fonts.ready.then(measure).catch(() => {});
-        }
-        return () => window.removeEventListener("resize", measure);
-    }, [infoVisible]);
+    useEffect(() => {
+        const el = headerRef.current;
+        if (!el) return;
+        const ro = new ResizeObserver(() => {
+            setHeaderHeight(el.offsetHeight);
+        });
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, []);
 
     useEffect(() => {
         if (!menuOpen) return;
@@ -74,104 +69,105 @@ export default function Navbar() {
 
     return (
         <>
-            <div
-                ref={infoBarRef}
-                className="fixed top-0 left-0 w-full z-40 bg-[#1E3A5F] text-white overflow-hidden"
-                style={{
-                    maxHeight: infoVisible ? "200px" : "0px",
-                    opacity: infoVisible ? 1 : 0,
-                    transition: "max-height 300ms cubic-bezier(0.16,1,0.3,1), opacity 250ms ease",
-                    pointerEvents: infoVisible ? "auto" : "none",
-                }}
-                aria-hidden={!infoVisible}
-            >
-                <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32 py-2.5 sm:py-3">
-                    <div className="flex flex-col gap-2 sm:gap-2.5 md:flex-row items-center md:justify-between md:gap-4">
-                        <p className="flex items-start sm:items-center gap-1.5 text-[12px] sm:text-[12px] md:text-[13px] lg:text-[14px] text-white/80 leading-relaxed md:flex-1 min-w-0">
-                            <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 shrink-0 text-[#E09A00] mt-0.5 sm:mt-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
-                            </svg>
-                            <span className="break-words text-center">Plot No. 2173, HSIIDC Industrial Estate, Rai, Sonipat (Haryana), India</span>
-                        </p>
+            {/* Fixed header: info bar + nav stacked in normal flow inside,
+                so the nav can never overlap or detach from the info bar. */}
+            <header ref={headerRef} id="site-header" className="fixed top-0 left-0 w-full z-40">
+                <div
+                    className="w-full bg-[#1E3A5F] text-white overflow-hidden"
+                    style={{
+                        maxHeight: infoVisible ? "200px" : "0px",
+                        opacity: infoVisible ? 1 : 0,
+                        transition: "max-height 300ms cubic-bezier(0.16,1,0.3,1), opacity 250ms ease",
+                        pointerEvents: infoVisible ? "auto" : "none",
+                    }}
+                    aria-hidden={!infoVisible}
+                >
+                    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32 py-2.5 sm:py-3">
+                        <div className="flex flex-col gap-2 sm:gap-2.5 md:flex-row items-center md:justify-between md:gap-4">
+                            <p className="flex items-start sm:items-center gap-1.5 text-[12px] sm:text-[12px] md:text-[13px] lg:text-[14px] text-white/80 leading-relaxed md:flex-1 min-w-0">
+                                <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 shrink-0 text-[#E09A00] mt-0.5 sm:mt-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
+                                </svg>
+                                <span className="break-words text-center">Plot No. 2173, HSIIDC Industrial Estate, Rai, Sonipat (Haryana), India</span>
+                            </p>
 
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 md:justify-end md:ml-auto shrink-0">
-                            <a href="tel:+919810152101" className="flex items-center gap-1 text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap">
-                                <svg className="w-3 h-3 text-[#E09A00]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01l-2.2 2.21z" />
-                                </svg>
-                                +91 98101 52101
-                            </a>
-                            <a href="tel:+919212540800" className="flex items-center gap-1 text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap">
-                                <svg className="w-3 h-3 text-[#E09A00]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01l-2.2 2.21z" />
-                                </svg>
-                                92125 40800
-                            </a>
+                            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 md:justify-end md:ml-auto shrink-0">
+                                <a href="tel:+919810152101" className="flex items-center gap-1 text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap">
+                                    <svg className="w-3 h-3 text-[#E09A00]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01l-2.2 2.21z" />
+                                    </svg>
+                                    +91 98101 52101
+                                </a>
+                                <a href="tel:+919212540800" className="flex items-center gap-1 text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] text-white/80 hover:text-white transition-colors duration-200 whitespace-nowrap">
+                                    <svg className="w-3 h-3 text-[#E09A00]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01l-2.2 2.21z" />
+                                    </svg>
+                                    92125 40800
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <nav
-                className="fixed left-0 w-full min-h-[64px] sm:min-h-[72px] lg:h-20 flex items-center gap-2 sm:gap-3 px-4 sm:px-6 md:px-4 lg:px-8 xl:px-12 2xl:px-20 bg-white/95 backdrop-blur-md border-b border-b-black/10 z-40"
-                style={{
-                    top: `${infoBarHeight}px`,
-                    transition: "top 300ms cubic-bezier(0.16,1,0.3,1)",
-                    boxShadow: scrolled ? "0 2px 16px rgba(30,58,95,0.10)" : "none",
-                }}
-                aria-label="Main navigation"
-            >
-                <a
-                    href="/"
-                    className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 md:flex-none outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-                    aria-label="Mapple Prints – home"
+                <nav
+                    className="w-full min-h-[64px] sm:min-h-[72px] lg:h-20 flex items-center gap-2 sm:gap-3 px-4 sm:px-6 md:px-4 lg:px-8 xl:px-12 2xl:px-20 bg-white/95 backdrop-blur-md border-b border-b-black/10"
+                    style={{
+                        boxShadow: scrolled ? "0 2px 16px rgba(30,58,95,0.10)" : "none",
+                    }}
+                    aria-label="Main navigation"
                 >
-                    <img src={logo} alt="" className="w-8 sm:w-10 md:w-9 lg:w-11 xl:w-12 shrink-0" />
-                    <span className="text-[17px] sm:text-[20px] md:text-[17px] lg:text-[24px] xl:text-[30px] font-bold tracking-tight text-[#1E3A5F] leading-none whitespace-nowrap truncate">
-                        MAPLE <span className="text-[#E09A00]">PRINTS</span>
-                    </span>
-                </a>
-
-                {/* Desktop links — md+ so the full nav stays unstacked everywhere the hero is unstacked (≥768px) */}
-                <ul className="hidden md:flex items-center gap-3 lg:gap-5 xl:gap-7 2xl:gap-8 mx-auto" role="list">
-                    {NAV_LINKS.map(({ label, href }) => (
-                        <li key={label}>
-                            <NavLink
-                                to={href}
-                                className={({ isActive }) =>
-                                    `text-[11px] lg:text-[12px] xl:text-[13px] font-semibold uppercase tracking-[0.04em] lg:tracking-[0.06em] whitespace-nowrap transition-colors duration-200 ${isActive
-                                        ? "text-[#E09A00] decoration-6 underline underline-offset-[24px]"
-                                        : "text-[#1E3A5F]/95 hover:text-[#E09A00]"
-                                    }`
-                                }
-                            >
-                                {label}
-                            </NavLink>
-                        </li>
-                    ))}
-                </ul>
-
-                <div className="hidden md:block shrink-0">
                     <a
-                        href="/contact"
-                        className="inline-flex items-center justify-center h-9 px-4 text-[12px] lg:h-10 lg:px-5 lg:text-[13px] xl:h-12 xl:px-8 xl:text-sm font-semibold text-white bg-[#E09A00] shadow-md transition-all duration-200 hover:bg-[#c98700] hover:shadow-lg active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#E09A00] whitespace-nowrap"
+                        href="/"
+                        className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1 md:flex-none outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                        aria-label="Mapple Prints – home"
                     >
-                        Contact
+                        <img src={logo} alt="" className="w-8 sm:w-10 md:w-9 lg:w-11 xl:w-12 shrink-0" />
+                        <span className="text-[17px] sm:text-[20px] md:text-[17px] lg:text-[24px] xl:text-[30px] font-bold tracking-tight text-[#1E3A5F] leading-none whitespace-nowrap truncate">
+                            MAPLE <span className="text-[#E09A00]">PRINTS</span>
+                        </span>
                     </a>
-                </div>
 
-                <button
-                    ref={toggleRef}
-                    type="button"
-                    className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center text-[#1E3A5F] outline-none transition-colors duration-150 hover:text-[#f0a500] focus-visible:ring-2 focus-visible:ring-[#1b3a8f] md:hidden shrink-0"
-                    aria-label={menuOpen ? "Close menu" : "Open menu"}
-                    aria-expanded={menuOpen}
-                    aria-controls="mobile-nav"
-                    onClick={() => setMenuOpen((v) => !v)}
-                >
-                    <HamburgerIcon open={menuOpen} />
-                </button>
-            </nav>
+                    {/* Desktop links — md+ so the full nav stays unstacked everywhere the hero is unstacked (≥768px) */}
+                    <ul className="hidden md:flex items-center gap-3 lg:gap-5 xl:gap-7 2xl:gap-8 mx-auto" role="list">
+                        {NAV_LINKS.map(({ label, href }) => (
+                            <li key={label}>
+                                <NavLink
+                                    to={href}
+                                    className={({ isActive }) =>
+                                        `text-[11px] lg:text-[12px] xl:text-[13px] font-semibold uppercase tracking-[0.04em] lg:tracking-[0.06em] whitespace-nowrap transition-colors duration-200 ${isActive
+                                            ? "text-[#E09A00] decoration-6 underline underline-offset-[24px]"
+                                            : "text-[#1E3A5F]/95 hover:text-[#E09A00]"
+                                        }`
+                                    }
+                                >
+                                    {label}
+                                </NavLink>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <div className="hidden md:block shrink-0">
+                        <a
+                            href="/contact"
+                            className="inline-flex items-center justify-center h-9 px-4 text-[12px] lg:h-10 lg:px-5 lg:text-[13px] xl:h-12 xl:px-8 xl:text-sm font-semibold text-white bg-[#E09A00] shadow-md transition-all duration-200 hover:bg-[#c98700] hover:shadow-lg active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#E09A00] whitespace-nowrap"
+                        >
+                            Contact
+                        </a>
+                    </div>
+
+                    <button
+                        ref={toggleRef}
+                        type="button"
+                        className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center text-[#1E3A5F] outline-none transition-colors duration-150 hover:text-[#f0a500] focus-visible:ring-2 focus-visible:ring-[#1b3a8f] md:hidden shrink-0"
+                        aria-label={menuOpen ? "Close menu" : "Open menu"}
+                        aria-expanded={menuOpen}
+                        aria-controls="mobile-nav"
+                        onClick={() => setMenuOpen((v) => !v)}
+                    >
+                        <HamburgerIcon open={menuOpen} />
+                    </button>
+                </nav>
+            </header>
 
             {menuOpen && (
                 <div
@@ -255,8 +251,8 @@ export default function Navbar() {
                 </div>
             </div>
 
-            {/* Spacer — reserves space for fixed info bar + nav so hero/heading never slides underneath */}
-            <div aria-hidden="true" style={{ height: infoBarHeight + 72 }} className="w-full" />
+            {/* Spacer — exact measured header height so content never slides under or gaps */}
+            <div id="header-spacer" aria-hidden="true" style={{ height: headerHeight }} className="w-full" />
         </>
     );
 }

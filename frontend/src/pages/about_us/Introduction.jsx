@@ -63,7 +63,7 @@ function FeatureCard({ icon: Icon, title, description }) {
 export default function Introduction() {
     return (
         <section
-            className="relative w-full py-20 md:py-28 mt-20 lg:mt-10"
+            className="relative w-full py-20 md:py-28"
             style={{ background: "#F5F6F8" }}
         >
             <div className="max-w-7xl mx-auto px-6 sm:px-10">

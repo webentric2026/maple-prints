@@ -83,7 +83,7 @@ function ContactCard({ icon: Icon, label, title, children, action }) {
 // ─────────────────────────────────────────────
 export default function Contact() {
     return (
-        <section className="relative w-full mt-15 ">
+        <section className="relative w-full">
             {/* ── Header Band ── */}
             <div
                 className="relative w-full overflow-hidden py-20 sm:py-24 md:py-32"

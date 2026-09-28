@@ -2,7 +2,7 @@ import groupedAll from "../../assets/images/Products/grouped-images/grouped-all.
 
 export default function ServicesHero() {
   return (
-    <section className="w-full bg-[#FAFAF8] py-14 md:py-24 mt-15">
+    <section className="w-full bg-[#FAFAF8] py-14 md:py-24">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 sm:px-10 md:grid-cols-2 md:gap-14">
         {/* Left: text */}
         <div className="text-center md:text-left">
